@@ -13,12 +13,18 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: lts/*
+    - name: Create .env file
+      run: |
+        echo "SWAG_LABS_USERNAME=${{ secrets.USERNAME }}" >> .env
+        echo "SWAG_LABS_PASSWORD=${{ secrets.PASSWORD }}" >> .env
     - name: Install dependencies
       run: npm ci
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
-    - name: Run Playwright tests
-      run: npx playwright test
+    - name: Run Valid tests for Assignment in Chromium
+      run: npm run assignment1-validCases-chromium
+    - name: Run edge cases tests for Assignment in Chromium
+      run: npm run assignment1-edgeCases-chromium
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

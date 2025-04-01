@@ -34,7 +34,7 @@ test.describe("Assignment 1 - Edge cases", () =>{
     await expect(errorLocatorText).toBeVisible();
   }),
   
-  test.only("Complete the Checkout Process with an invalid checkout form", async ({page}) => {
+  test("Complete the Checkout Process with an invalid checkout form", async ({page}) => {
     await productPage.addProducts(2);
     await cartPage.navigate();
     await checkoutPage.fillInfoPurchase("", "", "");

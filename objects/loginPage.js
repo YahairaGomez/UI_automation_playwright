@@ -27,7 +27,8 @@ class LoginPage{
         await this.page.fill(this.locators.usernameFormLocator, this.username);
         await this.page.fill(this.locators.passwordFormLocator, this.password);
         await this.page.click(this.locators.loginButtonLocator);
-        await expect(this.page).toHaveURL('/inventory.html');
+        await this.page.waitForNavigation();
+        await expect(this.page).toHaveURL('/inventory.html',);
     }
     
     async logout(){

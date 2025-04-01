@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "assignment1-edgeCases-chromium": "npx playwright test tests/edgeCases/assignment1.spec.js --project=chromium",
-    "assignment1-validCases-chromium": "npx playwright test tests/validCases/assignment1.spec.js --project=chromium",
+    "assignment1-validCases-chromium": "npx playwright test tests/validCases/assignment1.spec.js --project=chromium"
 
   },
   "keywords": [],

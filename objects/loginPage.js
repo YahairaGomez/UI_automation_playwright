@@ -1,5 +1,5 @@
 import {expect} from '@playwright/test';
-
+import generateRandomData from '../utils/generateRandomData';
 class LoginPage{
 
     constructor(page, username, password){
@@ -29,13 +29,29 @@ class LoginPage{
         await this.page.click(this.locators.loginButtonLocator);
         await expect(this.page).toHaveURL('/inventory.html');
     }
-
+    
     async logout(){
         await this.page.click(this.locators.menuButtonLocator);
         await this.page.click(this.locators.logoutLinkLocator);
         await expect(this.page).toHaveURL('/');
-        await expect(this.page.locator(this.locators.loginConfirmationLocator)).toBeVisible(); 
+        return await this.page.isVisible(this.locators.loginButtonLocator);
     }
+
+    // Edge cases
+    async generateLoginWithBlankFields(){
+        await this.navigate();
+        await this.page.fill(this.locators.usernameFormLocator, " ");
+        await this.page.fill(this.locators.passwordFormLocator, " ");
+        await this.page.click(this.locators.loginButtonLocator);
+    }
+
+    async generateLoginWithBadCredentials(){
+        await this.navigate();
+        await this.page.fill(this.locators.usernameFormLocator, generateRandomData.firstname);
+        await this.page.fill(this.locators.passwordFormLocator, generateRandomData.lastname);
+        await this.page.click(this.locators.loginButtonLocator);
+    }
+    
 }
 
 export default LoginPage;

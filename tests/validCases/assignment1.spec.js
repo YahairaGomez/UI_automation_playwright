@@ -1,4 +1,4 @@
-import { test } from '@playwright/test';
+import { expect, test } from '@playwright/test';
 import LoginPage from '../../objects/loginPage';
 import ProductPage from '../../objects/productPage';
 import CartPage from '../../objects/cartPage';
@@ -19,25 +19,35 @@ test.describe("Assignment 1", () =>{
     await loginPage.generateValidLogin();
   }),
 
-  //Add edge cases
   test("Login and Logout with valid credentials", async ({}) => {
-    await loginPage.logout();
+    const logoutSuccessful = await loginPage.logout();
+    await expect(logoutSuccessful).toBe(true);
   }),
 
   test("Add items to cart and remove one", async ({}) => {
-    await productPage.addProducts();
-    await cartPage.removeProducts();
-    await productPage.verifyNumberOfProductsSelected(1);
+    await productPage.addProducts(2);
+    await cartPage.removeProducts(1);
+    const numberOfProductsInCart= await productPage.numberOfProductsOnCart();
+    await expect(numberOfProductsInCart).toBe(1);
+    
   }),
   
-  test("Complete the Checkout Process", async ({}) => {
-    await productPage.addProducts();
+  test("Complete the Checkout Process", async ({page}) => {
+    await productPage.addProducts(2);
     await cartPage.navigate();
     await checkoutPage.fillInfoPurchase(firstNameInput, lastNameInput, zipCodeInput);
-    await checkoutPage.confirmInfoPurchase();
+    await expect(page).toHaveURL('/checkout-step-two.html');
+    const isACompleteCheckout = await checkoutPage.confirmInfoPurchase();
+    await expect(isACompleteCheckout).toBe(true);
   }),
 
-  test("Verify Product Cards on Products Page", async ({})=>{  
-    await productPage.verifyAllProductsAttributes();
+  test("Verify Product Cards on Products Page", async ({page})=>{  
+    const listOfProduct = await page.locator('.inventory_item_name').allTextContents();
+    for (const productName of listOfProduct){
+      await expect(await productPage.productHasImage(productName)).toBe(true);
+      await expect(await productPage.productHasName(productName)).toBe(true);
+      await expect(await productPage.productHasPrice(productName)).toBe(true);
+      await expect(await productPage.productHasAddToCartButton(productName)).toBe(true);
+      }
   })
 })

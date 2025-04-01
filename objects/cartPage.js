@@ -11,9 +11,11 @@ class CartPage{
         await this.page.goto("/cart.html");
     }
     
-    async removeProducts(){
+    async removeProducts(numberOfProducts){
         await this.navigate();
-        await this.locators.removeProductButtonsLocator.nth(0).click();    
+        for (let i=0; i<numberOfProducts;i++){
+            await this.locators.removeProductButtonsLocator.nth(0).click();    
+        }     
     }
 }
 

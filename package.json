@@ -17,7 +17,6 @@
     "@types/node": "^22.13.14"
   },
   "dependencies": {
-    "@axe-core/playwright": "^4.10.1",
     "@faker-js/faker": "^9.6.0",
     "dotenv": "^16.4.7"
   }

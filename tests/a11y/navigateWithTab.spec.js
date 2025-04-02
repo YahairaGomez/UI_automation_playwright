@@ -4,7 +4,6 @@ import ProductPage from '../../objects/productPage';
 import CartPage from '../../objects/cartPage';
 import CheckoutPage from '../../objects/checkoutPage';
 import AccessibilityTestChecker from '../../objects/accessibilityTestChecker';
-import AxeBuilder from '@axe-core/playwright';
 let loginPage, productPage, cartPage, checkoutPage;
 let accessibilityChecker;
 

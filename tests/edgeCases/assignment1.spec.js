@@ -24,13 +24,13 @@ test.describe("Assignment 1 - Edge cases", () =>{
   test("Create an invalid login with blank fields ", async ({page})=>{
     await loginPage.logout();
     await loginPage.generateLoginWithBlankFields();
-    const errorLocatorText = await page.locator(`text=${errorMessage[0]}`)
+    const errorLocatorText = page.locator(`text=${errorMessage[0]}`)
     await expect(errorLocatorText).toBeVisible();
   }),
   test("Create an invalid login with bad credentials ", async ({page})=>{
     await loginPage.logout();
     await loginPage.generateLoginWithBadCredentials();
-    const errorLocatorText = await page.locator(`text=${errorMessage[0]}`)
+    const errorLocatorText = page.locator(`text=${errorMessage[0]}`)
     await expect(errorLocatorText).toBeVisible();
   }),
   
@@ -38,7 +38,7 @@ test.describe("Assignment 1 - Edge cases", () =>{
     await productPage.addProducts(2);
     await cartPage.navigate();
     await checkoutPage.fillInfoPurchase("", "", "");
-    const errorLocatorText = await page.locator(`text=${errorMessage[1]}`)
+    const errorLocatorText = page.locator(`text=${errorMessage[1]}`)
     await expect(errorLocatorText).toBeVisible();
   })
 })

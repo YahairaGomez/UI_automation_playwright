@@ -27,8 +27,16 @@ class LoginPage{
         await this.page.fill(this.locators.usernameFormLocator, this.username);
         await this.page.fill(this.locators.passwordFormLocator, this.password);
         await this.page.click(this.locators.loginButtonLocator);
-        await this.page.waitForNavigation();
-        await expect(this.page).toHaveURL('/inventory.html',);
+        await this.page.waitForNavigation({ waitUntil: 'domcontentloaded' });
+
+        
+        if (this.page.url() !== 'https://www.saucedemo.com/inventory.html') {
+            console.log('Login failed, taking screenshot...');
+            await this.page.screenshot({ path: 'debug-login.png', fullPage: true });
+        }
+
+        await expect(this.page).toHaveURL('/inventory.html', { timeout: 10000 });
+        
     }
     
     async logout(){

@@ -32,7 +32,7 @@ class LoginPage{
         
         if (this.page.url() !== 'https://www.saucedemo.com/inventory.html') {
             console.log('Login failed, taking screenshot...');
-            await this.page.screenshot({ path: 'debug-login.png', fullPage: true });
+            await this.page.screenshot({ path: '../../screenshots/debug-login.png', fullPage: true });
         }
 
         await expect(this.page).toHaveURL('/inventory.html', { timeout: 10000 });

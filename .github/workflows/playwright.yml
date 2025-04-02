@@ -35,4 +35,4 @@ jobs:
       if: failure()
       with:
         name: debug-screenshot
-        path: debug-login.png
+        path: '../../screenshots/debug-login.png'

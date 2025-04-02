@@ -27,7 +27,6 @@ class CheckoutPage{
     async confirmInfoPurchase(){
         await this.page.goto("/checkout-step-two.html");
         await this.page.locator(this.locators.finishButtonLocator).click();
-        //await expect(this.page.locator(this.locators.confirmationPurchaseMessageLocator)).toBeVisible();
         return await this.page.isVisible(this.locators.confirmationPurchaseMessageLocator);
       }
 

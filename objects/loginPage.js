@@ -27,10 +27,15 @@ class LoginPage{
         await this.page.fill(this.locators.usernameFormLocator, this.username);
         await this.page.fill(this.locators.passwordFormLocator, this.password);
         await this.page.click(this.locators.loginButtonLocator);
-        
+
         if (this.page.url() !== 'https://www.saucedemo.com/inventory.html') {
             console.log('Login failed, taking screenshot...');
-            await this.page.screenshot({ path: '../../screenshots/debug-login.png', fullPage: true });
+
+            if (!fs.existsSync('screenshots')) {
+                fs.mkdirSync('screenshots');
+            }
+
+            await this.page.screenshot({ path: 'screenshots/debug-login.png', fullPage: true });
         }
 
         await expect(this.page).toHaveURL('/inventory.html', { timeout: 50000 });

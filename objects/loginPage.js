@@ -1,5 +1,6 @@
 import {expect} from '@playwright/test';
 import generateRandomData from '../utils/generateRandomData';
+import fs from 'fs';
 class LoginPage{
 
     constructor(page, username, password){

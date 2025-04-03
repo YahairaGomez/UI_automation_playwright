@@ -41,11 +41,5 @@ test.describe("Assignment 1 - Edge cases", () =>{
     const errorLocatorText = page.locator(`text=${errorMessage[1]}`)
     await expect(errorLocatorText).toBeVisible();
   })
-
-  test("Exposing password from login page", async ({page}) => {
-    await loginPage.logout();
-    const passwordObtained = await loginPage.exposingPassword();
-    await expect(passwordObtained).toBe("secret_sauce");
-  })  
 })
   

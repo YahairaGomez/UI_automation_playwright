@@ -54,14 +54,6 @@ class LoginPage{
         await this.page.fill(this.locators.passwordFormLocator, generateRandomData.lastname);
         await this.page.click(this.locators.loginButtonLocator);
     }
-    
-    // Security
-    async exposingPassword(){
-        await this.navigate();
-        await this.page.fill(this.locators.usernameFormLocator, this.username);
-        await this.page.fill(this.locators.passwordFormLocator, this.password);
-        return await this.page.locator(this.locators.loginInputsLocator).inputValue();        
-    }
 }
 
 export default LoginPage;

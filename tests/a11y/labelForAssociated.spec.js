@@ -18,8 +18,13 @@ test.describe("Assignment 2", () =>{
   }),
 
   
-  test("Tab navigation", async ({page}) => {
+  test("Login page inputs must have associated <label> elements with for attributes", async ({page}) => {
     await page.goto('/'); 
-    
+    let allInputsLocator = await accessibilityChecker.getAllInputs();
+    const count = await allInputsLocator.count();
+    for (let i = 0; i < count; i++) {
+        let inputId = await allInputsLocator.nth(i).getAttribute('id');
+        await expect(await page.locator(`label[for="${inputId}"]`)).toHaveCount(0); 
+    }         
   })
 })

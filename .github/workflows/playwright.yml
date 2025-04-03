@@ -25,11 +25,9 @@ jobs:
       run: npm run assignment1-validCases-chromium
     - name: Run edge cases tests for Assignment in Chromium
       run: npm run assignment1-edgeCases-chromium
-    - name: Run accessibility tests for Assignment 2 (check presence of tittle)
-      run: npm run assignment2-a11y-checkTittle-chromium
-    - name: Run accessibility tests for Assignment 2 (check presence of alt attribute)
-      run: npm run assignment2-a11y-checkAltAttribute-chromium
-
+    - name: Run accessibility tests for Assignment 2 
+      run: npm run assignment2-a11yCases-chromium
+  
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:

@@ -27,6 +27,8 @@ jobs:
       run: npm run assignment1-edgeCases-chromium
     - name: Run accessibility tests for Assignment 2 
       run: npm run assignment2-a11yCases-chromium
+    - name: Run both Assignments 1 and 2 
+      run: npm run assignment-1-2-chromium
   
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}

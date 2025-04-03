@@ -10,7 +10,9 @@ class ProductPage{
         };
     }
 
-
+    async navigate(){
+        await this.page.goto('/inventory.html');
+    }
     async addProducts(numberOfProducts){
         for (let i=0; i<numberOfProducts;i++){
             await this.locators.addToCartButtonsLocator.nth(i).click();    
@@ -19,7 +21,7 @@ class ProductPage{
 
     async numberOfProductsOnCart() {  //return a boolean
         let numberOfProductsObtained;
-        const isBadgeVisible = await this.locators.cartBadgeLocator.isVisible();
+        const isBadgeVisible = this.locators.cartBadgeLocator.isVisible();
         if (!isBadgeVisible) return 0;
         numberOfProductsObtained = parseInt(await this.locators.cartBadgeLocator.textContent(), 10);
         return numberOfProductsObtained;
@@ -37,9 +39,9 @@ class ProductPage{
         }
     }
     async productHasName(productName){
-        let productDescription = await this.page.locator(`.inventory_item_description:has-text("${productName}")`);
-        const productNameLocator = await productDescription.locator('.inventory_item_name');
-        const productNameText = await productNameLocator.textContent()
+        let productDescription = this.page.locator(`.inventory_item_description:has-text("${productName}")`);
+        const productNameLocator = productDescription.locator('.inventory_item_name');
+        const productNameText = await productNameLocator.textContent();
         if (!productNameText)
             return false;
         return true;

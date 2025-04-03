@@ -2,18 +2,17 @@ import { expect } from '@playwright/test';
 class AccessibilityTestChecker{
     constructor(page){
         this.page = page;
-        // this.locators = {
-            
-        // }
+        this.locators = {
+            inventory_list_class : "div[@class='inventory_list']",
+            inventory_item_class : "div[@class='inventory_item']",
+            inventory_item_img_class : "div[@class='inventory_item_img']",
+        }
     }
-    async checkTitle(path = "/") { 
-        await this.page.goto(path); 
-        await expect(this.page).toHaveTitle(/.+/); 
+    async selectAllAltAttributesImages(){
+        return this.page.locator(`//${this.locators.inventory_list_class}//${this.locators.inventory_item_class}//${this.locators.inventory_item_img_class}//img[@alt]`);
     }
 
-    async keyboardFocusable(){
-
-    }
+    
 }
 
 export default AccessibilityTestChecker;

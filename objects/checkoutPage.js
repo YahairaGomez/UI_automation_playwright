@@ -13,10 +13,18 @@ class CheckoutPage{
       }
       
     }
-
+    async navigateFirstPage(){
+      await this.page.goto('/checkout-step-one.html');
+    }
+    async navigateSecondPage(){
+      await this.page.goto('/checkout-step-two.html');
+    }
+    async navigateFinalPage(){
+      await this.page.goto('/checkout-complete.html');
+    }
     //Step one
     async fillInfoPurchase(firstname, lastname, zipCode){
-        await this.page.goto("/checkout-step-one.html");
+        await this.navigateFirstPage();
         await this.page.fill(this.locators.firstnameForLocator, firstname);
         await this.page.fill(this.locators.lastnameForLocator, lastname);
         await this.page.fill(this.locators.postalCodeLocator, zipCode);
@@ -25,9 +33,9 @@ class CheckoutPage{
 
     //Step two
     async confirmInfoPurchase(){
-        await this.page.goto("/checkout-step-two.html");
-        await this.page.locator(this.locators.finishButtonLocator).click();
-        return await this.page.isVisible(this.locators.confirmationPurchaseMessageLocator);
+      await this.navigateSecondPage();
+      await this.page.locator(this.locators.finishButtonLocator).click();
+      return await this.page.isVisible(this.locators.confirmationPurchaseMessageLocator);
       }
 
 }

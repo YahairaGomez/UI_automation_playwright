@@ -15,7 +15,8 @@ class LoginPage{
             loginButtonLocator: '#login-button',
             menuButtonLocator: '#react-burger-menu-btn',
             logoutLinkLocator: '#logout_sidebar_link',
-            loginConfirmationLocator: 'text=Login'
+            loginConfirmationLocator: 'text=Login',
+            loginInputsLocator: '//input[@class="input_error form_input" and @name="password"]'
         };
     }
 
@@ -54,6 +55,13 @@ class LoginPage{
         await this.page.click(this.locators.loginButtonLocator);
     }
     
+    // Security
+    async exposingPassword(){
+        await this.navigate();
+        await this.page.fill(this.locators.usernameFormLocator, this.username);
+        await this.page.fill(this.locators.passwordFormLocator, this.password);
+        return await this.page.locator(this.locators.loginInputsLocator).inputValue();        
+    }
 }
 
 export default LoginPage;

@@ -2,22 +2,19 @@ import { expect } from '@playwright/test';
 class AccessibilityTestChecker{
     constructor(page){
         this.page = page;
-        this.locators = {
-            inventory_list_class : 'div[@class="inventory_list"]',
-            inventory_item_class : 'div[@class="inventory_item"]',
-            inventory_item_img_class : 'div[@class="inventory_item_img"]',
-            inputFields : '//input',
-            allInputsLocator    :   '//input',
-            allButtonLocator    :   '//div[@class="inventory_list"]//button'
-
-        }
+        this.inventory_list_class = page.locator('div[@class="inventory_list"]');
+        this.inventory_item_class = page.locator( 'div[@class="inventory_item"]');
+        this.inventory_item_img_class = page.locator( 'div[@class="inventory_item_img"]');
+        this.allInputsLocator = page.locator( '//input');
+        this.allButtonLocator = page.locator( '//div[@class="inventory_list"]//button');
     }
+
     async selectAllAltAttributesImages(){
-        return this.page.locator(`//${this.locators.inventory_list_class}//${this.locators.inventory_item_class}//${this.locators.inventory_item_img_class}//img[@alt]`);
+        return this.page.locator(`//${this.inventory_list_class}//${this.inventory_item_class}//${this.inventory_item_img_class}//img[@alt]`);
     }
 
     async getAllInputs(){
-        return this.page.locator(this.locators.inputFields);
+        return this.allInputsLocator;
     }
 
     async checkOutline(locator) {
@@ -38,11 +35,11 @@ class AccessibilityTestChecker{
     }
 
     async checkOutlineForInputs(){
-        return await this.checkOutline(this.page.locator(this.locators.allInputsLocator));
+        return await this.checkOutline(this.allInputsLocator);
     }
 
     async checkOutlineForButtons(){
-        return await this.checkOutline(this.page.locator(this.locators.allButtonLocator));
+        return await this.checkOutline(this.allButtonLocator);
     }
 }
 

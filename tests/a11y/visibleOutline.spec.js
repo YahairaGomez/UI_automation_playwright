@@ -6,15 +6,7 @@ import CheckoutPage from '../../objects/checkoutPage';
 import AccessibilityTestChecker from '../../objects/accessibilityTestChecker';
 let loginPage, productPage, cartPage, checkoutPage;
 let accessibilityChecker;
-
-const pages = [
-  { page: "Login Page", navigate: () => loginPage.navigate() },
-  { page: "Product Page", navigate: () => productPage.navigate() },
-  { page: "Cart Page", navigate: () => cartPage.navigate() },
-  { page: "Checkout Page (First Step)", navigate: () => checkoutPage.navigateFirstPage() },
-  { page: "Checkout Page (Second Step)", navigate: () => checkoutPage.navigateSecondPage() },
-  { page: "Checkout Page (Final Step)", navigate: () => checkoutPage.navigateFinalPage() }
-];
+let pages = [];
 test.describe("Assignment 2", () =>{
   test.beforeEach(async ({page})=>{
     loginPage = new LoginPage(page);
@@ -22,6 +14,7 @@ test.describe("Assignment 2", () =>{
     cartPage = new CartPage(page);
     checkoutPage = new CheckoutPage(page);
     accessibilityChecker = new AccessibilityTestChecker(page);
+    pages = await accessibilityChecker.pagesList();
     await loginPage.generateValidLogin();
   })
   for(const { page: pageName, navigate } of pages){

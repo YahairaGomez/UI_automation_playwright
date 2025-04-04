@@ -3,15 +3,12 @@ import { expect } from "@playwright/test";
 class CheckoutPage{
     constructor(page){
       this.page = page;
-      this.locators ={
-        firstnameForLocator : '#first-name',
-        lastnameForLocator : '#last-name',
-        postalCodeLocator : '#postal-code',
-        continueButtonLocator : '#continue',
-        finishButtonLocator : '#finish',
-        confirmationPurchaseMessageLocator: 'text=Thank you for your order!'
-      }
-      
+      this.firstnameForLocator                = page.locator('#first-name');
+      this.lastnameForLocator                 = page.locator('#last-name');
+      this.postalCodeLocator                  = page.locator('#postal-code');
+      this.continueButtonLocator              = page.locator('#continue');
+      this.finishButtonLocator                = page.locator('#finish');
+      this.confirmationPurchaseMessageLocator = page.locator('text=Thank you for your order!');      
     }
     async navigateFirstPage(){
       await this.page.goto('/checkout-step-one.html');
@@ -25,17 +22,17 @@ class CheckoutPage{
     //Step one
     async fillInfoPurchase(firstname, lastname, zipCode){
         await this.navigateFirstPage();
-        await this.page.fill(this.locators.firstnameForLocator, firstname);
-        await this.page.fill(this.locators.lastnameForLocator, lastname);
-        await this.page.fill(this.locators.postalCodeLocator, zipCode);
-        await this.page.locator(this.locators.continueButtonLocator).click();
+        await this.firstnameForLocator.fill(firstname);
+        await this.lastnameForLocator.fill(lastname);
+        await this.postalCodeLocator.fill(zipCode);
+        await this.continueButtonLocator.click();
     }
 
     //Step two
     async confirmInfoPurchase(){
       await this.navigateSecondPage();
-      await this.page.locator(this.locators.finishButtonLocator).click();
-      return await this.page.isVisible(this.locators.confirmationPurchaseMessageLocator);
+      await this.finishButtonLocator.click();
+      return await this.confirmationPurchaseMessageLocator.isVisible();
       }
 
 }

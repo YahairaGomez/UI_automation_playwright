@@ -3,11 +3,9 @@ import { expect } from '@playwright/test';
 class ProductPage{
     constructor(page){
       this.page = page;
-      this.locators = {
-        addToCartButtonsLocator: page.locator('.btn_inventory'), 
-        cartBadgeLocator: page.locator('[data-test="shopping-cart-badge"]'),
-        allProducts: page.locator('.inventory_item_name'),
-        };
+        this.addToCartButtonsLocator = page.locator('.btn_inventory');
+        this.cartBadgeLocator        = page.locator('[data-test="shopping-cart-badge"]');
+        this.allProducts             = page.locator('.inventory_item_name');
     }
 
     async navigate(){
@@ -15,15 +13,15 @@ class ProductPage{
     }
     async addProducts(numberOfProducts){
         for (let i=0; i<numberOfProducts;i++){
-            await this.locators.addToCartButtonsLocator.nth(i).click();    
+            await this.addToCartButtonsLocator.nth(i).click();    
         }    
     }
 
     async numberOfProductsOnCart() {  //return a boolean
         let numberOfProductsObtained;
-        const isBadgeVisible = this.locators.cartBadgeLocator.isVisible();
+        const isBadgeVisible = this.cartBadgeLocator.isVisible();
         if (!isBadgeVisible) return 0;
-        numberOfProductsObtained = parseInt(await this.locators.cartBadgeLocator.textContent(), 10);
+        numberOfProductsObtained = parseInt(await this.cartBadgeLocator.textContent(), 10);
         return numberOfProductsObtained;
     }
 
